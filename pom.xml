@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>bc-parent</artifactId>
 		<groupId>cn.bc</groupId>
-		<version>3.2-SNAPSHOT</version>
+		<artifactId>bc-parent</artifactId>
+		<version>${revision}</version>
+		<relativePath>../bc-parent</relativePath>
 	</parent>
 	<artifactId>bc-express</artifactId>
-	<version>2.1-SNAPSHOT</version>
 	<description>快递查询</description>
 	<dependencies>
 		<dependency>
@@ -15,9 +15,57 @@
 			<artifactId>bc-core</artifactId>
 		</dependency>
 	</dependencies>
+	<url>https://github.com/bcsoft/bc-express</url>
+	<organization>
+		<name>bcsoft</name>
+		<url>https://github.com/bcsoft</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>https://opensource.org/licenses/MIT</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<developers>
+		<developer>
+			<name>RJ.Hwang</name>
+			<email>rongjihuang@gmail.com</email>
+		</developer>
+	</developers>
 	<scm>
-		<connection>scm:git:git@github.com:bcsoft/bc-express.git</connection>
-		<developerConnection>scm:git:git@github.com:bcsoft/bc-express.git</developerConnection>
-		<url>https://github.com/bcsoft/bc-express</url>
+		<url>https://github.com/bcsoft/bc-express.git</url>
 	</scm>
+	<issueManagement>
+		<system>GitHub</system>
+		<url>https://github.com/bcsoft/bc-express/issues</url>
+	</issueManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+				<inherited>false</inherited>
+				<executions>
+					<execution>
+						<id>flatten</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>flatten</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}</outputDirectory>
+							<flattenedPomFilename>flattened-pom.xml</flattenedPomFilename>
+							<updatePomFile>true</updatePomFile>
+							<flattenMode>oss</flattenMode>
+							<pomElements>
+								<parent>resolve</parent>
+								<properties>interpolate</properties>
+							</pomElements>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
